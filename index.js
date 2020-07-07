@@ -1,7 +1,9 @@
 const express = require('express')
+const cors = require('cors')
 const { generateInsult } = require('./helpers')
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 
 app.post('/', (req, res) => {
