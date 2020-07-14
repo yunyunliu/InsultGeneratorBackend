@@ -1,66 +1,122 @@
 const { descriptor_after, descriptor_before, subject_in_middle, predicate, insult, kicker, niceQuotes } = require('./trump')
 
 const helpers = {
-  getRandomIndex: component => {
-    return Math.floor(Math.random() * Math.floor(component.length))
+  generateTypeAndIndexes: () => {
+    const getRandomIndex = component => {
+      const randomIndex = Math.floor(Math.random() * Math.floor(component.length))
+      return randomIndex
+    }
+    const indexes = {
+      type: Math.floor(Math.random() * Math.floor(4)),
+      descriptorBeforeIndex: getRandomIndex(descriptor_before),
+      descriptorAfterIndex: getRandomIndex(descriptor_after),
+      predicateIndex: getRandomIndex(predicate),
+      insultIndex: getRandomIndex(insult),
+      subjectInMiddleIndex: getRandomIndex(subject_in_middle),
+      kickerIndex: getRandomIndex(kicker),
+      niceQuotesIndex: getRandomIndex(niceQuotes),
+    }
+    return indexes
   },
-  generateInsult: name => {
-    const randomDescriptorAfter = descriptor_after[helpers.getRandomIndex(descriptor_after)]
-    const randomDescriptorBefore = descriptor_before[helpers.getRandomIndex(descriptor_before)]
-    const randomPredicate = predicate[helpers.getRandomIndex(predicate)]
-    const randomInsult = insult[helpers.getRandomIndex(insult)]
-    const randomKicker = kicker[helpers.getRandomIndex(kicker)]
-    const randomSubjectInMiddle = subject_in_middle[helpers.getRandomIndex(subject_in_middle)]
-   
+  // generateInsult: indexes => {
+  //   const insultType = indexes.type
+  //   let insult = ''
+  //   switch (insultType) {
+  //     case 0: // name + descriptorAfter + predicate...
+  //       id += indexesObj.descriptorAfterIndex + indexesObj.predicateIndex + indexesObj.insultIndex
+  //       console.log(id)
+  //       if (Math.random() > .5) {
+  //         id += indexesObj.kickerIndex
+  //       }
+  //       console.log(id)
+  //       return id
+  //     case 1: // descriptorBefore + name + predicate ...
+  //       id += indexesObj.descriptorBeforeIndex + indexesObj.predicateIndex + indexesObj.insultIndex
+  //       if (Math.random() > .5) {
+  //         id += indexesObj.kickerIndex
+  //         console.log(id)
+  //       }
+  //       console.log(id)
+  //       return id
+  //     case 2: // name + predicate + insult
+  //       id += indexesObj.predicateIndex + indexesObj.insultIndex
+  //       if (Math.random() > .5) {
+  //         id += indexesObj.kickerIndex
+  //       }
+  //       console.log(id)
+  //       return id
+  //     case 3: // descriptorBefore + name + descriptorAfter + ...
+  //       id += indexesObj.descriptorBeforeIndex + indexesObj.descriptorAfterIndex + indexesObj.predicateIndex + indexesObj.insultIndex 
+  //       if (Math.random() > .5) {
+  //         id += indexesObj.kickerIndex
+  //       }
+  //       console.log(id)
+  //       return id
+  //     case 4: // subjectInMiddle[0] + name + subjectInMiddle[1] + ...
+  //       id += indexesObj.subjectInMiddleIndex + indexesObj.predicateIndex + indexesObj.insultIndex
+  //       if (Math.random() > .5) {
+  //         id += indexesObj.kickerIndex
+  //       }
+  //       console.log(id)
+  //       return id
+  //   }
+  // },
+  generateInsult: (name, indexes) => {
     if (name) {
-      console.log(name)
       const formattedName = name[0].toUpperCase() + name.slice(1).toLowerCase()
-      console.log(formattedName)
+
       let generatedInsult;
-      if (formattedName === 'Donald' || formattedName === 'Trump') {
-        generatedInsult = niceQuotes[helpers.getRandomIndex(niceQuotes)]
-      } else {
-        const insultType = Math.floor(Math.random() * Math.floor(4))
-        console.log(insultType)
-     
-        switch (insultType) {
-          case 0:
-            generatedInsult =  formattedName + randomDescriptorAfter + randomPredicate + randomInsult
-            if (Math.random() > .5) {
-                generatedInsult += randomKicker
-              }
-            break
-          case 1:
-            generatedInsult = randomDescriptorBefore + formattedName + randomPredicate + randomInsult
-            if (Math.random() > .5) {
-              generatedInsult += randomKicker
-            }
-            break
-          case 2:
-            generatedInsult = formattedName + randomPredicate + randomInsult
-            if (Math.random() > .5) {
-              generatedInsult += randomKicker
-            }
-            break
-          case 3:
-            generatedInsult = randomDescriptorBefore + formattedName + randomDescriptorAfter + randomPredicate + randomInsult
-            if (Math.random() > .5) {
-              generatedInsult += randomKicker
-            }
-            break
-          case 4: 
-            generatedInsult = randomSubjectInMiddle[0] + formattedName + randomSubjectInMiddle[1] + formattedName + randomPredicate + randomInsult
-            if (Math.random() > .5) {
-              generatedInsult += randomKicker
-            }
-            break
-        }
+      if (name === 'Donald' || name === 'Trump') {
+        generatedInsult = name + niceQuotes[indexes.niceQuotesIndex]
         return generatedInsult
       } 
-    } else {
-      console.log('no name given')
-    }
+      if (indexes.type === 0) {
+        generatedInsult = formattedName
+        + descriptor_after[indexes.descriptorAfterIndex]
+        + predicate[indexes.predicateIndex]
+        + insult[indexes.insultIndex] 
+
+        return Math.random() > .5 ? generatedInsult += kicker[indexes.kickerIndex] : generatedInsult
+      }
+      if (indexes.type === 1) {
+        generatedInsult = descriptor_before[indexes.descriptorBeforeIndex] 
+        + formattedName
+        + predicate[indexes.predicateIndex]
+        + insult[indexes.insultIndex]  
+
+        return Math.random() > .5 ? generatedInsult += kicker[indexes.kickerIndex] : generatedInsult
+      } 
+      if (indexes.type === 2) {
+        generatedInsult = formattedName 
+        + predicate[indexes.predicateIndex]
+        + insult[indexes.insultIndex]  
+
+        return Math.random() > .5 ? generatedInsult += kicker[indexes.kickerIndex] : generatedInsult
+      }
+      if (indexes.type === 3) {
+      generatedInsult = descriptor_before[indexes.descriptorBeforeIndex] 
+      + formattedName
+      + descriptor_after[indexes.descriptorAfterIndex]
+      + predicate[indexes.predicateIndex]
+      + insult[indexes.insultIndex] 
+
+      return Math.random() > .5 ? generatedInsult += kicker[indexes.kickerIndex] : generatedInsult
+      }
+      if (indexes.type === 4) {
+        const subjInMiddle = subject_in_middle[indexes.subjectInMiddleIndex]
+
+        generatedInsult = subjInMiddle[0] 
+        + formattedName
+        + subjInMiddle[1]
+        + predicate[indexes.predicateIndex]
+        + insult[indexes.insultIndex] 
+
+        return generatedInsult
+    } 
+  } else {
+    console.log('no name given')
   }
+}
 }
 
 
