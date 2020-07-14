@@ -28,141 +28,75 @@ const helpers = {
      includesKicker,
      kickerIndex,
      niceQuotesIndex }) => {
-    let id;
-    
-    if (includesKicker) {
-      switch (type) {
-        case 0:
-          id = '' +
-          type +
-          descriptorAfterIndex + 
-          predicateIndex + 
-          insultIndex +
-          kickerIndex
-          break
-        case 1: 
-          id = '' +
-          type + 
-          descriptorBeforeIndex +
-          predicateIndex + 
-          insultIndex +
-          kickerIndex
-          break
-        case 2: 
-          id = '' +
-          type + 
-          predicateIndex + 
-          insultIndex +
-          kickerIndex
-          break
-        case 3:
-          id = '' +
-          type + 
-          descriptorBeforeIndex +
-          descriptorAfterIndex + 
-          predicateIndex + 
-          insultIndex +
-          kickerIndex
-          break
-        case 4: 
-          id = '' +
-          type + 
-          subjectInMiddleIndex +
-          predicateIndex + 
-          insultIndex +
-          kickerIndex
-          break
-      }
-    } else {
-      switch (type) {
-        case 0:
-          id = '' +
-          type + 
-          descriptorAfterIndex + 
-          predicateIndex + 
-          insultIndex 
-          break
-        case 1:
-          id = '' +
-          type + 
-          descriptorBeforeIndex +
-          predicateIndex + 
-          insultIndex 
-          break
-        case 2:
-          id = '' +
-          type + 
-          predicateIndex + 
-          insultIndex 
-          break
-        case 3:
-          id = '' +
-          type + 
-          descriptorBeforeIndex +
-          descriptorAfterIndex + 
-          predicateIndex + 
-          insultIndex
-          break
-        case 4:
-          id = '' +
-          type + 
-          subjectInMiddleIndex +
-          predicateIndex + 
-          insultIndex 
-          break
-        }
-      }
-      return id
+       const padNums = (num, places) => {
+         const numStr = num.toString()
+         return numStr.padStart(places, '0')
+       }
+
+    return ('' + type +
+    padNums(descriptorBeforeIndex, 2) +
+    padNums(descriptorAfterIndex, 2) +
+    padNums(predicateIndex, 3) + 
+    padNums(insultIndex, 2) +
+    subjectInMiddleIndex +
+    includesKicker +
+    padNums(kickerIndex, 2) +
+    niceQuotesIndex)
     },
   generateInsult: (name, indexes) => {
+    const indexNums = {}
+    for (const index in indexes) {
+      indexNums[index] = parseInt(indexes[index])
+    }
+
     if (name) {
       const formattedName = name[0].toUpperCase() + name.slice(1).toLowerCase()
-
       let generatedInsult;
+
       if (name === 'Donald' || name === 'Trump') {
         generatedInsult = name + niceQuotes[indexes.niceQuotesIndex]
         return generatedInsult
       } 
-      if (indexes.type === 0) {
+      if (indexNums.type === 0) {
         generatedInsult = formattedName
-        + descriptor_after[indexes.descriptorAfterIndex]
-        + predicate[indexes.predicateIndex]
-        + insult[indexes.insultIndex] 
+        + descriptor_after[indexNums.descriptorAfterIndex]
+        + predicate[indexNums.predicateIndex]
+        + insult[indexNums.insultIndex] 
 
-        return Math.random() > .5 ? generatedInsult += kicker[indexes.kickerIndex] : generatedInsult
+        return Math.random() > .5 ? generatedInsult += kicker[indexNums.kickerIndex] : generatedInsult
       }
-      if (indexes.type === 1) {
-        generatedInsult = descriptor_before[indexes.descriptorBeforeIndex] 
+      if (indexNums.type === 1) {
+        generatedInsult = descriptor_before[indexNums.descriptorBeforeIndex] 
         + formattedName
-        + predicate[indexes.predicateIndex]
-        + insult[indexes.insultIndex]  
+        + predicate[indexNums.predicateIndex]
+        + insult[indexNums.insultIndex]  
 
-        return Math.random() > .5 ? generatedInsult += kicker[indexes.kickerIndex] : generatedInsult
+        return Math.random() > .5 ? generatedInsult += kicker[indexNums.kickerIndex] : generatedInsult
       } 
-      if (indexes.type === 2) {
+      if (indexNums.type === 2) {
         generatedInsult = formattedName 
-        + predicate[indexes.predicateIndex]
-        + insult[indexes.insultIndex]  
+        + predicate[indexNums.predicateIndex]
+        + insult[indexNums.insultIndex]  
 
-        return Math.random() > .5 ? generatedInsult += kicker[indexes.kickerIndex] : generatedInsult
+        return Math.random() > .5 ? generatedInsult += kicker[indexNums.kickerIndex] : generatedInsult
       }
-      if (indexes.type === 3) {
-      generatedInsult = descriptor_before[indexes.descriptorBeforeIndex] 
+      if (indexNums.type === 3) {
+      generatedInsult = descriptor_before[indexNums.descriptorBeforeIndex] 
       + formattedName
-      + descriptor_after[indexes.descriptorAfterIndex]
-      + predicate[indexes.predicateIndex]
-      + insult[indexes.insultIndex] 
+      + descriptor_after[indexNums.descriptorAfterIndex]
+      + predicate[indexNums.predicateIndex]
+      + insult[indexNums.insultIndex] 
 
-      return Math.random() > .5 ? generatedInsult += kicker[indexes.kickerIndex] : generatedInsult
+      return Math.random() > .5 ? generatedInsult += kicker[indexNums.kickerIndex] : generatedInsult
       }
-      if (indexes.type === 4) {
-        const subjInMiddle = subject_in_middle[indexes.subjectInMiddleIndex]
+      if (indexNums.type === 4) {
+        const subjInMiddle = subject_in_middle[indexNums.subjectInMiddleIndex]
 
         generatedInsult = subjInMiddle[0] 
         + formattedName
         + subjInMiddle[1]
-        + predicate[indexes.predicateIndex]
-        + insult[indexes.insultIndex] 
+        + predicate[indexNums.predicateIndex]
+        + insult[indexNums.insultIndex] 
 
         return generatedInsult
     } 
