@@ -14,53 +14,106 @@ const helpers = {
       insultIndex: getRandomIndex(insult),
       subjectInMiddleIndex: getRandomIndex(subject_in_middle),
       kickerIndex: getRandomIndex(kicker),
+      includesKicker: Math.random() > 0.5 ? 1 : 0,
       niceQuotesIndex: getRandomIndex(niceQuotes),
     }
     return indexes
   },
-  // generateInsult: indexes => {
-  //   const insultType = indexes.type
-  //   let insult = ''
-  //   switch (insultType) {
-  //     case 0: // name + descriptorAfter + predicate...
-  //       id += indexesObj.descriptorAfterIndex + indexesObj.predicateIndex + indexesObj.insultIndex
-  //       console.log(id)
-  //       if (Math.random() > .5) {
-  //         id += indexesObj.kickerIndex
-  //       }
-  //       console.log(id)
-  //       return id
-  //     case 1: // descriptorBefore + name + predicate ...
-  //       id += indexesObj.descriptorBeforeIndex + indexesObj.predicateIndex + indexesObj.insultIndex
-  //       if (Math.random() > .5) {
-  //         id += indexesObj.kickerIndex
-  //         console.log(id)
-  //       }
-  //       console.log(id)
-  //       return id
-  //     case 2: // name + predicate + insult
-  //       id += indexesObj.predicateIndex + indexesObj.insultIndex
-  //       if (Math.random() > .5) {
-  //         id += indexesObj.kickerIndex
-  //       }
-  //       console.log(id)
-  //       return id
-  //     case 3: // descriptorBefore + name + descriptorAfter + ...
-  //       id += indexesObj.descriptorBeforeIndex + indexesObj.descriptorAfterIndex + indexesObj.predicateIndex + indexesObj.insultIndex 
-  //       if (Math.random() > .5) {
-  //         id += indexesObj.kickerIndex
-  //       }
-  //       console.log(id)
-  //       return id
-  //     case 4: // subjectInMiddle[0] + name + subjectInMiddle[1] + ...
-  //       id += indexesObj.subjectInMiddleIndex + indexesObj.predicateIndex + indexesObj.insultIndex
-  //       if (Math.random() > .5) {
-  //         id += indexesObj.kickerIndex
-  //       }
-  //       console.log(id)
-  //       return id
-  //   }
-  // },
+  generateInsultId: ({ type,
+     descriptorBeforeIndex,
+     descriptorAfterIndex, 
+     predicateIndex, 
+     insultIndex,
+     subjectInMiddleIndex,
+     includesKicker,
+     kickerIndex,
+     niceQuotesIndex }) => {
+    let id;
+    
+    if (includesKicker) {
+      switch (type) {
+        case 0:
+          id = '' +
+          type +
+          descriptorAfterIndex + 
+          predicateIndex + 
+          insultIndex +
+          kickerIndex
+          break
+        case 1: 
+          id = '' +
+          type + 
+          descriptorBeforeIndex +
+          predicateIndex + 
+          insultIndex +
+          kickerIndex
+          break
+        case 2: 
+          id = '' +
+          type + 
+          predicateIndex + 
+          insultIndex +
+          kickerIndex
+          break
+        case 3:
+          id = '' +
+          type + 
+          descriptorBeforeIndex +
+          descriptorAfterIndex + 
+          predicateIndex + 
+          insultIndex +
+          kickerIndex
+          break
+        case 4: 
+          id = '' +
+          type + 
+          subjectInMiddleIndex +
+          predicateIndex + 
+          insultIndex +
+          kickerIndex
+          break
+      }
+    } else {
+      switch (type) {
+        case 0:
+          id = '' +
+          type + 
+          descriptorAfterIndex + 
+          predicateIndex + 
+          insultIndex 
+          break
+        case 1:
+          id = '' +
+          type + 
+          descriptorBeforeIndex +
+          predicateIndex + 
+          insultIndex 
+          break
+        case 2:
+          id = '' +
+          type + 
+          predicateIndex + 
+          insultIndex 
+          break
+        case 3:
+          id = '' +
+          type + 
+          descriptorBeforeIndex +
+          descriptorAfterIndex + 
+          predicateIndex + 
+          insultIndex
+          break
+        case 4:
+          id = '' +
+          type + 
+          subjectInMiddleIndex +
+          predicateIndex + 
+          insultIndex 
+          break
+        }
+      }
+      return id
+    },
   generateInsult: (name, indexes) => {
     if (name) {
       const formattedName = name[0].toUpperCase() + name.slice(1).toLowerCase()
