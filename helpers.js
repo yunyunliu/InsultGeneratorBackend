@@ -25,8 +25,7 @@ const helpers = {
           insultType,
           descriptorBeforeIndex: getRandomIndex(descriptor_before),
           predicateIndex: getRandomIndex(predicate),
-          insultIndex: getRandomIndex(insult),
-          niceQuotesIndex: getRandomIndex(niceQuotes)
+          insultIndex: getRandomIndex(insult)
         }
       case 1: 
         return {
@@ -102,68 +101,67 @@ const helpers = {
     let id;
     switch (indexes.insultType) {
       case 0:
-        id = `${indexes.insultType},
-        ${indexes.descriptorBeforeIndex},
-        ${indexes.predicateIndex},
-        ${indexes.insultIndex}`
+        id = indexes.insultType + ',' +
+        indexes.descriptorBeforeIndex + ',' +
+        indexes.predicateIndex + ',' +
+        indexes.insultIndex
         break
       case 1:
-        id = `${indexes.insultType},
-        ${indexes.descriptorBeforeIndex},
-        ${indexes.predicateIndex},
-        ${indexes.insultIndex},
-        ${indexes.kickerIndex}`
+        id = indexes.insultType + ',' +
+        indexes.descriptorBeforeIndex + ',' +
+        indexes.predicateIndex + ',' +
+        indexes.insultIndex + ',' +
+        indexes.kickerIndex
         break 
       case 2:
-        id = `${indexes.insultType},
-        ${indexes.descriptorAfterIndex},
-        ${indexes.predicateIndex},
-        ${indexes.insultIndex}`
+        id = indexes.insultType + ',' +
+        indexes.descriptorAfterIndex + ',' +
+        indexes.predicateIndex + ',' +
+        indexes.insultIndex
         break
       case 3:
-        id = `${indexes.insultType},
-        ${indexes.descriptorAfterIndex},
-        ${indexes.predicateIndex},
-        ${indexes.insultIndex},
-        ${indexes.kickerIndex}`
+        id = indexes.insultType + ',' +
+        indexes.descriptorAfterIndex + ',' +
+        indexes.predicateIndex + ',' +
+        indexes.insultIndex + ',' +
+        indexes.kickerIndex
         break
       case 4:
-        id = `${indexes.insultType},
-        ${indexes.descriptorBeforeIndex},
-        ${indexes.predicateIndex},
-        ${indexes.insultIndex}`
+        id = indexes.insultType + ',' +
+        indexes.descriptorBeforeIndex + ',' +
+        indexes.predicateIndex + ',' +
+        indexes.insultIndex
         break
       case 5:
-        id = `${indexes.insultType},
-        ${indexes.descriptorBeforeIndex},
-        ${indexes.descriptorAfterIndex},
-        ${indexes.predicateIndex},
-        ${indexes.insultIndex},
-        ${indexes.kickerIndex}`
-      break 
+        id = indexes.insultType + ',' +
+        indexes.descriptorBeforeIndex + ',' +
+        indexes.predicateIndex + ',' +
+        indexes.insultIndex + ',' +
+        indexes.kickerIndex
+        break 
       case 6:
-        id = `${indexes.insultType},
-        ${indexes.predicateIndex},
-        ${indexes.insultIndex}`
+        id = indexes.insultType  + ',' +
+        indexes.predicateIndex + ',' +
+        indexes.insultIndex
         break 
       case 7:
-        id = `${indexes.insultType},
-        ${indexes.predicateIndex},
-        ${indexes.insultIndex},
-        ${indexes.kickerIndex}`
+        id = indexes.insultType  + ',' +
+        indexes.predicateIndex + ',' +
+        indexes.insultIndex + ',' +
+        indexes.kickerIndex
         break 
       case 8:
-        id = `${indexes.insultType},
-        ${indexes.subjectInMiddleIndex},
-        ${indexes.predicateIndex},
-        ${indexes.insultIndex}`
+        id = indexes.insultType + ',' +
+        indexes.subjectInMiddleIndex + ',' + 
+        indexes.predicateIndex + ',' +
+        indexes.insultIndex
         break
       case 9:
-        id = `${indexes.insultType},
-        ${indexes.subjectInMiddleIndex},
-        ${indexes.predicateIndex},
-        ${indexes.insultIndex},
-        ${indexes.kickerIndex}`
+        id = indexes.insultType + ',' +
+        indexes.subjectInMiddleIndex + ',' +
+        indexes.predicateIndex + ',' +
+        indexes.insultIndex + ',' +
+        indexes.kickerIndex
         break  
       }
       return id
