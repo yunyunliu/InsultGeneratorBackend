@@ -11,8 +11,6 @@ const insults = {
     ", a dishonest slob of a reporter,",
     ", a no-good rotten traitor,",
     ", who wears glasses to make himself look smarter,",
-
-
     ", a total lightweight who opposes me and some of our great Republican ideas and policies,",
     ", a third rate lawyer who is good at making false accusations,",
     ", someone who has done very little,",
@@ -41,8 +39,6 @@ const insults = {
     ", perhaps in a near drunken state,",
     ", an extraordinarily low IQ person,",
     " (check out sex tape and past)"
-
-
   ],
 
   "descriptor_before": [
@@ -63,8 +59,6 @@ const insults = {
     "An 'extremely credible' source has called my office and told me that ",
     "This idiot ",
     "Little ",
-
-
     "Crime loving ",
     "Crazy ",
     "Sloppy ",
@@ -119,8 +113,6 @@ const insults = {
     [ "I was never a fan of ", ". " ],
     [ "Question will be, is ", " a Flake? I hope not. " ],
     [ "Why would anybody listen to ", "? " ]
-    
-
   ],
 
   "predicate": [
@@ -258,10 +250,6 @@ const insults = {
     " is boring and totally biased.",
     " is wrong on so many subjects.",
     " has a major inferiority complex."
-
-
-
-
   ],
 
   "insult": [
@@ -278,8 +266,6 @@ const insults = {
     " A total loser!",
     " We're not dealing with Albert Einstein.",
     " Average talent who is out of touch with reality.",
-
-
     " A waste!",
     " A total low-life!",
     " A real nut job!",
@@ -318,9 +304,6 @@ const insults = {
     " A third rate talent!",
     " Really dumb puppet.",
     " BORING."
-
-
-
   ],
 
   "kicker": [
@@ -343,7 +326,6 @@ const insults = {
     " Tiny children are not horses.",
     " THE UNITED STATES HAS ENOUGH PROBLEMS!",
     " Save our children and their future.",
-
     " Media rigging election!",
     " Too bad!",
     " We're going to win bigly.",
@@ -361,17 +343,19 @@ const insults = {
     "That one should be our president!",
     "I know the best people. And that's one of them.",
     "Fantastic, yuge potential!"
-]
+  ]
+}
+const templates = {
+    '0': ['descriptor_before', 'predicate', 'insult'],
+    '1': ['descriptor_before', 'predicate', 'insult', 'kicker'],
+    '2': [ 'descriptor_after', 'predicate', 'insult'],
+    '3': ['descriptor_after', 'predicate', 'insult', 'kicker'],
+    '4': ['descriptor_before', 'descriptor_after', 'predicate', 'insult'],
+    '5': ['descriptor_before', 'descriptor_after', 'predicate', 'insult', 'kicker'],
+    '6': ['predicate', 'insult'],
+    '7': ['predicate', 'insult', 'kicker'],
+    '8': ["subject_in_middle", 'predicate', 'insult'],
+    '9': ['subject_in_middle', 'predicate', 'insult', 'kicker']
 }
 
-const lengths = {
-  'descriptor after': insults.descriptor_after.length,
-  'descriptor before': insults.descriptor_before.length,
-  'subject in middle': insults.subject_in_middle.length,
-  'predicate': insults.predicate.length,
-  'insult': insults.insult.length,
-  'kicker': insults.kicker.length,
-  'nice quotes': insults.niceQuotes.length
-}
-
-module.exports = insults
+module.exports = { insults, templates }
