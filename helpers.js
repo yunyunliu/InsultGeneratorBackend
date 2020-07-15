@@ -34,16 +34,14 @@ const helpers = {
           descriptorBeforeIndex: getRandomIndex(descriptor_before),
           predicateIndex: getRandomIndex(predicate),
           insultIndex: getRandomIndex(insult),
-          kickerIndex: getRandomIndex(kicker),
-          niceQuotesIndex: getRandomIndex(niceQuotes)
+          kickerIndex: getRandomIndex(kicker)
         }
       case 2: 
         return {
           insultType,
           descriptorAfterIndex: getRandomIndex(descriptor_after),
           predicateIndex: getRandomIndex(predicate),
-          insultIndex: getRandomIndex(insult),
-          niceQuotesIndex: getRandomIndex(niceQuotes)
+          insultIndex: getRandomIndex(insult)
         }
       case 3: 
         return {
@@ -51,8 +49,7 @@ const helpers = {
           descriptorAfterIndex: getRandomIndex(descriptor_after),
           predicateIndex: getRandomIndex(predicate),
           insultIndex: getRandomIndex(insult),
-          kickerIndex: getRandomIndex(kicker),
-          niceQuotesIndex: getRandomIndex(niceQuotes)
+          kickerIndex: getRandomIndex(kicker)
         }
         case 4: 
         return {
@@ -60,8 +57,7 @@ const helpers = {
           descriptorBeforeIndex: getRandomIndex(descriptor_before),
           descriptorAfterIndex: getRandomIndex(descriptor_after),
           predicateIndex: getRandomIndex(predicate),
-          insultIndex: getRandomIndex(insult),
-          niceQuotesIndex: getRandomIndex(niceQuotes)
+          insultIndex: getRandomIndex(insult)
         }
         case 5: 
         return {
@@ -70,31 +66,27 @@ const helpers = {
           descriptorAfterIndex: getRandomIndex(descriptor_after),
           predicateIndex: getRandomIndex(predicate),
           insultIndex: getRandomIndex(insult),
-          kickerIndex: getRandomIndex(kicker),
-          niceQuotesIndex: getRandomIndex(niceQuotes)
+          kickerIndex: getRandomIndex(kicker)
         }
         case 6: 
         return {
           insultType,
           predicateIndex: getRandomIndex(predicate),
-          insultIndex: getRandomIndex(insult),
-          niceQuotesIndex: getRandomIndex(niceQuotes)
+          insultIndex: getRandomIndex(insult)
         }
         case 7: 
         return {
           insultType,
           predicateIndex: getRandomIndex(predicate),
           insultIndex: getRandomIndex(insult),
-          kickerIndex: getRandomIndex(kicker),
-          niceQuotesIndex: getRandomIndex(niceQuotes)
+          kickerIndex: getRandomIndex(kicker)
         }
         case 8: 
         return {
           insultType,
           subjectInMiddleIndex: getRandomIndex(subject_in_middle),
           predicateIndex: getRandomIndex(predicate),
-          insultIndex: getRandomIndex(insult),
-          niceQuotesIndex: getRandomIndex(niceQuotes)
+          insultIndex: getRandomIndex(insult)
         }
         case 9: 
         return {
@@ -103,7 +95,6 @@ const helpers = {
           predicateIndex: getRandomIndex(predicate),
           insultIndex: getRandomIndex(insult),
           kickerIndex: getRandomIndex(kicker),
-          niceQuotesIndex: getRandomIndex(niceQuotes)
         }
     }
   },
@@ -114,38 +105,33 @@ const helpers = {
         id = `${indexes.insultType},
         ${indexes.descriptorBeforeIndex},
         ${indexes.predicateIndex},
-        ${indexes.insultIndex},
-        ${indexes.niceQuotesIndex}`
+        ${indexes.insultIndex}`
         break
       case 1:
         id = `${indexes.insultType},
         ${indexes.descriptorBeforeIndex},
         ${indexes.predicateIndex},
         ${indexes.insultIndex},
-        ${indexes.kickerIndex},
-        ${indexes.niceQuotesIndex}`
+        ${indexes.kickerIndex}`
         break 
       case 2:
         id = `${indexes.insultType},
         ${indexes.descriptorAfterIndex},
         ${indexes.predicateIndex},
-        ${indexes.insultIndex},
-        ${indexes.niceQuotesIndex}`
+        ${indexes.insultIndex}`
         break
       case 3:
         id = `${indexes.insultType},
         ${indexes.descriptorAfterIndex},
         ${indexes.predicateIndex},
         ${indexes.insultIndex},
-        ${indexes.kickerIndex},
-        ${indexes.niceQuotesIndex}`
+        ${indexes.kickerIndex}`
         break
       case 4:
         id = `${indexes.insultType},
         ${indexes.descriptorBeforeIndex},
         ${indexes.predicateIndex},
-        ${indexes.insultIndex},
-        ${indexes.niceQuotesIndex}`
+        ${indexes.insultIndex}`
         break
       case 5:
         id = `${indexes.insultType},
@@ -153,38 +139,34 @@ const helpers = {
         ${indexes.descriptorAfterIndex},
         ${indexes.predicateIndex},
         ${indexes.insultIndex},
-        ${indexes.kickerIndex},
-        ${indexes.niceQuotesIndex}`
+        ${indexes.kickerIndex}`
       break 
       case 6:
         id = `${indexes.insultType},
         ${indexes.predicateIndex},
-        ${indexes.insultIndex},
-        ${indexes.niceQuotesIndex}`
+        ${indexes.insultIndex}`
         break 
       case 7:
         id = `${indexes.insultType},
         ${indexes.predicateIndex},
         ${indexes.insultIndex},
-        ${indexes.kickerIndex},
-        ${indexes.niceQuotesIndex}`
+        ${indexes.kickerIndex}`
         break 
       case 8:
         id = `${indexes.insultType},
         ${indexes.subjectInMiddleIndex},
         ${indexes.predicateIndex},
-        ${indexes.insultIndex},
-        ${indexes.niceQuotesIndex}`
+        ${indexes.insultIndex}`
         break
       case 9:
         id = `${indexes.insultType},
         ${indexes.subjectInMiddleIndex},
         ${indexes.predicateIndex},
         ${indexes.insultIndex},
-        ${indexes.kickerIndex},
-        ${indexes.niceQuotesIndex}`
+        ${indexes.kickerIndex}`
         break  
       }
+      return id
   },
   encodeId: id => {
     let hexId = ''
@@ -204,72 +186,40 @@ const helpers = {
   buildInsult: (name, decodedId) => {
     const id = decodedId.split(',') // array
     const numbers = id.map(i => parseInt(i))
-    const indexes = numbers.slice(1)
-    
+    const indexesOnly = numbers.slice(1)
+    const insultType = numbers[0]
+    console.log('idArray', id, 'array as numbers', numbers, 'insult type', insultType, 'indexes array', indexesOnly )
     let insult;
+
     if (name) {
       const formattedName = name[0].toUpperCase() + name.slice(1).toLowerCase()
+      console.log('formatted name', formattedName)
       if (name === 'Donald' || name === 'Trump') {
         const niceIndex = numbers.length - 1
         insult = name + niceQuotes[niceIndex]
         return insult
       } 
-    }
+      const phrases = []
+      const insultTemplate = templates[insultType]
+
+      for (let i = 0; i < indexesOnly.length; i++) {
+        const part = insultTemplate[i] // array of arrays
+        const index = indexesOnly[i]
+        phrases.push(part[index])
+        // console.log('template length', part.length, 'indexesOnly length', indexesOnly.length)
+      }
+      console.log('type 3 template length',templates[3].length)
+      console.log('phrases', phrases)
+      phrases.splice(0, 1, name)
+      const insult = phrases.join()
+      console.log('insult', insult)
+    // } else {
+    //   console.log('no name given')
+    // }
    
-}
- 
+  }
 
-   
-
-     
-      if (indexNums.type === 0) {
-        generatedInsult = formattedName
-        + descriptor_after[indexNums.descriptorAfterIndex]
-        + predicate[indexNums.predicateIndex]
-        + insult[indexNums.insultIndex] 
-
-        return Math.random() > .5 ? generatedInsult += kicker[indexNums.kickerIndex] : generatedInsult
-      }
-      if (indexNums.type === 1) {
-        generatedInsult = descriptor_before[indexNums.descriptorBeforeIndex] 
-        + formattedName
-        + predicate[indexNums.predicateIndex]
-        + insult[indexNums.insultIndex]  
-
-        return Math.random() > .5 ? generatedInsult += kicker[indexNums.kickerIndex] : generatedInsult
-      } 
-      if (indexNums.type === 2) {
-        generatedInsult = formattedName 
-        + predicate[indexNums.predicateIndex]
-        + insult[indexNums.insultIndex]  
-
-        return Math.random() > .5 ? generatedInsult += kicker[indexNums.kickerIndex] : generatedInsult
-      }
-      if (indexNums.type === 3) {
-      generatedInsult = descriptor_before[indexNums.descriptorBeforeIndex] 
-      + formattedName
-      + descriptor_after[indexNums.descriptorAfterIndex]
-      + predicate[indexNums.predicateIndex]
-      + insult[indexNums.insultIndex] 
-
-      return Math.random() > .5 ? generatedInsult += kicker[indexNums.kickerIndex] : generatedInsult
-      }
-      if (indexNums.type === 4) {
-        const subjInMiddle = subject_in_middle[indexNums.subjectInMiddleIndex]
-
-        generatedInsult = subjInMiddle[0] 
-        + formattedName
-        + subjInMiddle[1]
-        + predicate[indexNums.predicateIndex]
-        + insult[indexNums.insultIndex] 
-
-        return generatedInsult
-    } 
-  } else {
-    console.log('no name given')
   }
 }
-}
-
 
 module.exports = helpers
