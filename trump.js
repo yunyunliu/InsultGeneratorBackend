@@ -364,4 +364,14 @@ const insults = {
 ]
 }
 
+const lengths = {
+  'descriptor after': insults.descriptor_after.length,
+  'descriptor before': insults.descriptor_before.length,
+  'subject in middle': insults.subject_in_middle.length,
+  'predicate': insults.predicate.length,
+  'insult': insults.insult.length,
+  'kicker': insults.kicker.length,
+  'nice quotes': insults.niceQuotes.length
+}
+
 module.exports = insults
