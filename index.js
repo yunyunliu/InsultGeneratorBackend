@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { generateIndexes, encodeInsult, decodeId, buildInsult } = require('./helpers')
+const { generateIndexes, generateId, encodeId, decodeId, buildInsult, formatName } = require('./helpers')
 const app = express()
 
 app.use(cors())
@@ -8,13 +8,16 @@ app.use(express.json())
 
 app.post('/', (req, res) => {
   const name = req.body.name
-  console.log(name)
-  const indexes = generateIndexes()
-  const insultId = generateInsultId(indexes)
-  const hexId = parseInt(insultId, 16)  
-  const genInsult = generateInsult(name,indexes)
-  const numIdAgain = hexId.toString(16)
-  res.json({ indexes, insult: genInsult, insultId, hexId, numIdAgain })
+  if (name) {
+    const formatted = formatName(name)
+    const indexes = generateIndexes()
+    const insultId = generateId(indexes)
+    const hexId = encodeId(insultId)
+    const genInsult = buildInsult(formatted, insultId)
+    res.json({ insult: genInsult, hexId })
+  } else {
+    res.send('no name given')
+  }
 })
 
 app.post('/:insultId', (req, res) => {

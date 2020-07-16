@@ -207,10 +207,17 @@ const { descriptor_before,
     for (let i = 0; i < template.length; i+=1) {
       let key = template[i] // string
       let array = insults[key]
-      console.log('name:', key)
+      // console.log('name:', key)
       let generatedIndex = indexes[i] // number
       let phrase = array[generatedIndex]
         phrases.push(phrase)
+    }
+    if (Array.isArray(phrases[0])) {
+      const array = phrases[0]
+      const subjectInMiddle1 = array[0]
+      const subjectInMiddle2 = array[1]
+      phrases.splice(0, 2, subjectInMiddle1, subjectInMiddle2)
+      return phrases
     }
     return phrases
   }
@@ -219,18 +226,22 @@ const { descriptor_before,
     const indexes = decodedId.slice(2) // string
     const indexesAsNumbers = parseId(indexes) // array of numbers
 
-    if (name) {
-      const formatted = formatName(name)
-      if (formatted === 'Donald' || formatted === 'Trump') {
-        return generateCompliment(formatted)
-      } 
-      const phrases = buildInsultHelper(indexesAsNumbers, templates[insultType])
-      const insult = phrases.join('')
-      return insult
-    } else {
-      console.log('no name given')
-    }
+    if (name === 'Donald' || name === 'Trump') {
+      return generateCompliment(name)
+    } 
+    const phrases = buildInsultHelper(indexesAsNumbers, templates[insultType]) // array of strings
+    const insult = insertName(insultType, phrases, name)
+    return insult.join('')
+}
+  const insertName = (insultType, phrases, name) => { //string array out: array of strings
+    const nameFirst = ['2', '3', '6', '7']
+    if (nameFirst.includes(insultType)) {
+      phrases.unshift(name)
+      return phrases
+    } 
+    phrases.splice(1, 0, name)
+    return phrases
   }
 
 
-module.exports = { buildInsult, buildInsultHelper, generateId, generateIndexes, encodeId, decodeId }
+module.exports = { buildInsult, buildInsultHelper, generateId, generateIndexes, encodeId, decodeId, formatName }
