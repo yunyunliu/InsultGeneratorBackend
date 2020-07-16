@@ -13,7 +13,7 @@ const { descriptor_before,
   }
   const generateIndexes = () => { // in: -- out: object containing numbers  
     let indexes;
-    const insultType = Math.floor(Math.random() * Math.floor(10)) // number
+    const insultType = Math.floor(Math.random() * Math.floor(10)) // numberid
     switch (insultType) {
       case 0:
         indexes = {

@@ -5,6 +5,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static('public'))
 
 app.post('/', (req, res) => {
   const name = req.body.name
@@ -20,8 +21,13 @@ app.post('/', (req, res) => {
   }
 })
 
-app.post('/:insultId', (req, res) => {
-
+app.get('/', (req, res) => {
+  const { name, id } = req.query
+  console.log(req.query)
+  // const decodedId = decodeId(id)
+  // const formatted = formatName(name)
+  // const insult = buildInsult(formatted, decodedId)
+  res.send({name, id})
 })
 
 const PORT = 3001
