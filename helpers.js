@@ -203,24 +203,21 @@ const { descriptor_before,
     return first + rest
   }
   const buildInsultHelper = (indexes, template) => { // in: (array of numbers, array of arrays) out: array of strings
-    return console.log(indexes, template)
-    // const phrases = []
-    // for (let i = 0; i < template.length; i+=1) {
-    //   let key = template[i] // string
-    //   let array = insults[key]
-    //   console.log('name:', key)
-    //   let generatedIndex = indexes[i] // number
-    //   let phrase = array[generatedIndex]
-    //     phrases.push(phrase)
-    //     console.log('component name:', key, 'index:', generatedIndex, 'phrase:', phrase, 'i:', i) 
-    // }
-    // return phrases
+    const phrases = []
+    for (let i = 0; i < template.length; i+=1) {
+      let key = template[i] // string
+      let array = insults[key]
+      console.log('name:', key)
+      let generatedIndex = indexes[i] // number
+      let phrase = array[generatedIndex]
+        phrases.push(phrase)
+    }
+    return phrases
   }
   const buildInsult = (name, decodedId) => { // in: (string, string) out: string
     const insultType = decodedId[0] // string
     const indexes = decodedId.slice(2) // string
     const indexesAsNumbers = parseId(indexes) // array of numbers
-    return indexesAsNumbers
 
     if (name) {
       const formatted = formatName(name)
@@ -228,13 +225,12 @@ const { descriptor_before,
         return generateCompliment(formatted)
       } 
       const phrases = buildInsultHelper(indexesAsNumbers, templates[insultType])
-      return phrases
-      // console.log('phrases array',phrases)
-        // return phrases.join()
+      const insult = phrases.join('')
+      return insult
     } else {
       console.log('no name given')
     }
   }
 
 
-module.exports = { buildInsult, buildInsultHelper }
+module.exports = { buildInsult, buildInsultHelper, generateId, generateIndexes, encodeId, decodeId }
