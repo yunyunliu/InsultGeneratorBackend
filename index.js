@@ -22,12 +22,16 @@ app.post('/', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-  const { name, id } = req.query
-  console.log(req.query)
-  const decodedId = decodeId(id)
-  const formatted = formatName(name)
-  const insult = buildInsult(formatted, decodedId)
-  res.send(insult)
+  if (req.query.name === undefined) {
+    res.send('no query string')
+  } else {
+    const { name, id } = req.query
+    console.log(req.query)
+    const decodedId = decodeId(id)
+    const formatted = formatName(name)
+    const insult = buildInsult(formatted, decodedId)
+    res.send({ insult, formatted })
+  }
 })
 
 const PORT = process.env.PORT ||3001
