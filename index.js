@@ -24,13 +24,13 @@ app.post('/', (req, res) => {
 app.get('/', (req, res) => {
   const { name, id } = req.query
   console.log(req.query)
-  // const decodedId = decodeId(id)
-  // const formatted = formatName(name)
-  // const insult = buildInsult(formatted, decodedId)
-  res.send({name, id})
+  const decodedId = decodeId(id)
+  const formatted = formatName(name)
+  const insult = buildInsult(formatted, decodedId)
+  res.send(insult)
 })
 
-const PORT = 3001
+const PORT = process.env.PORT ||3001
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`)
 })
