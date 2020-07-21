@@ -5,7 +5,7 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use(express.static('static'))
+app.use(express.static('build'))
 
 app.post('/insult', (req, res) => {
   const name = req.body.name
