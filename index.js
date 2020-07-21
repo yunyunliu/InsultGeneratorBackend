@@ -5,9 +5,9 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use(express.static('build'))
+app.use(express.static('public'))
 
-app.post('/insult', (req, res) => {
+app.post('/', (req, res) => {
   const name = req.body.name
   if (name) {
     const formatted = formatName(name)
@@ -21,7 +21,7 @@ app.post('/insult', (req, res) => {
   }
 })
 
-app.get('/insult', (req, res) => {
+app.get('/', (req, res) => {
   if (req.query.name === undefined) {
     res.send('no query string')
   } else {
