@@ -7,7 +7,7 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static('build'))
 
-app.post('/', (req, res) => {
+app.post('/insult', (req, res) => {
   const name = req.body.name
   if (name) {
     const formatted = formatName(name)
