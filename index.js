@@ -1,11 +1,15 @@
 const express = require('express')
 const cors = require('cors')
 const { generateIndexes, generateId, encodeId, decodeId, buildInsult, formatName } = require('./helpers')
+const { handleText } = require('./handleText.js')
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 app.use(express.static('build'))
+
+process.env.GOOGLE_APPLICATION_CREDENTIALS = '/Users/yunyun/Downloads/tts-key.json'
+console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS)
 
 app.post('/', (req, res) => {
   const name = req.body.name
@@ -19,6 +23,11 @@ app.post('/', (req, res) => {
   } else {
     res.send('no name given')
   }
+})
+
+app.post('/speak', async (req, res) => {
+  const audioData = await handleText(req, res)
+  res.send(audioData)
 })
 
 app.get('/insult', (req, res) => {
