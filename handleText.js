@@ -4,21 +4,16 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 
 // Creates a client
 const client = new textToSpeech.TextToSpeechClient();
-async function handleText(req, res) {
-  // The text to synthesize
-  const text = req.body.text || 'hello there';
-  const request = {  // Construct the request
-    input: { text },  
-    // Select the language and SSML voice gender (optional)
-    voice: { languageCode: 'en-US', ssmlGender: 'NEUTRAL' },
-    // select the type of audio encoding
+async function handleText(text = 'omar sucks', language = 'en-US', gender = 'MALE') {
+  const request = {  
+    input: { text  },  
+    voice: { languageCode: language, ssmlGender: gender },
     audioConfig: { audioEncoding: 'MP3' }
   };
   const [ response ]  = await client.synthesizeSpeech(request); // make api call
-  // decode base 64 encoded audioContent string to binary string
-  const audioContent = response.audioContent
-  const binary = audioContent.toString('binary')
-  return binary
+  const buf = response.audioContent
+  const audioString = buf.toString('base64');
+  return audioString
 }
 
 module.exports.handleText = handleText

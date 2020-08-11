@@ -6,12 +6,12 @@ const app = express()
 
 app.use(cors())
 app.use(express.json())
-app.use(express.static('build'))
+app.use(express.static('root'))
 
 process.env.GOOGLE_APPLICATION_CREDENTIALS = '/Users/yunyun/Downloads/tts-key.json'
-console.log(process.env.GOOGLE_APPLICATION_CREDENTIALS)
 
 app.post('/', (req, res) => {
+  debugger
   const name = req.body.name
   if (name) {
     const formatted = formatName(name)
@@ -25,8 +25,9 @@ app.post('/', (req, res) => {
   }
 })
 
-app.post('/speak', async (req, res) => {
-  const audioData = await handleText(req, res)
+app.post('/speak', async (req, res) => { 
+  const { text, language, gender } = req.body 
+  const audioData = await handleText(text, language, gender)
   res.send(audioData)
 })
 
@@ -35,7 +36,6 @@ app.get('/insult', (req, res) => {
     res.send('no query string')
   } else {
     const { name, id } = req.query
-    console.log(req.query)
     const decodedId = decodeId(id)
     const formatted = formatName(name)
     const insult = buildInsult(formatted, decodedId)
