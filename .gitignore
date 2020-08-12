@@ -2,3 +2,4 @@ node_modules/
 requests
 hexEncode.js
 apiScript.js
+formatScript.js

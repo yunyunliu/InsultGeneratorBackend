@@ -11,7 +11,6 @@ app.use(express.static('root'))
 process.env.GOOGLE_APPLICATION_CREDENTIALS = '/Users/yunyun/Downloads/tts-key.json'
 
 app.post('/', (req, res) => {
-  debugger
   const name = req.body.name
   if (name) {
     const formatted = formatName(name)

@@ -4,7 +4,7 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 
 // Creates a client
 const client = new textToSpeech.TextToSpeechClient();
-async function handleText(text = 'omar sucks', language = 'en-US', gender = 'MALE') {
+async function handleText(text, language, gender) {
   const request = {  
     input: { text  },  
     voice: { languageCode: language, ssmlGender: gender },
