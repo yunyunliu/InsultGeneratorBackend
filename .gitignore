@@ -3,3 +3,5 @@ requests
 hexEncode.js
 apiScript.js
 formatScript.js
+testHelpers.js
+.vscode

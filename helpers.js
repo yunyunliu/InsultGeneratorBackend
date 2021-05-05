@@ -1,4 +1,4 @@
-const { insults, templates } = require('./trump')
+const { insults, templates } = require('./insultDataSet')
 const { descriptor_before,
    descriptor_after,
    subject_in_middle, 

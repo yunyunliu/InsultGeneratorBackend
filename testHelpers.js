@@ -1,5 +1,5 @@
 const { buildInsult, buildInsultHelper, generateId, generateIndexes, encodeId, decodeId } = require('./helpers')
-const { templates } = require('./trump')
+const { templates } = require('./insultDataSet')
 
 
 const indexesObject = generateIndexes()
@@ -17,12 +17,5 @@ console.log('id:', idStr, 'encode', hex, 'decode again', decodeId(hex),'insult:'
 
 
 
-
-// const idStr = '2,23,89,12'
-
-// const hexId = '322c32332c38392c3132'
-
-// // const insultType = '2'
-// console.log(insult)
 
 

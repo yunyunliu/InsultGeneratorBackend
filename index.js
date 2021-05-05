@@ -8,8 +8,6 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static('root'))
 
-process.env.GOOGLE_APPLICATION_CREDENTIALS = '/Users/yunyun/Downloads/tts-key.json'
-
 app.post('/', (req, res) => {
   const name = req.body.name
   if (name) {
